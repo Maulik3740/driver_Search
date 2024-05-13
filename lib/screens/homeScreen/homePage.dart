@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuerteads/screens/homeScreen/resultPage.dart';
 import 'package:fuerteads/values/screen.dart';
@@ -5,6 +6,7 @@ import 'package:fuerteads/values/values.dart';
 import 'package:fuerteads/widgets/navbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../../responsive.dart' as res;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -17,6 +19,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _experienceController = TextEditingController();
+  TextEditingController _locationController = TextEditingController();
+  // String _selectedExperience = '';
+  List<String> _experiences = [
+    'Driver',
+    'Vehicle Owner',
+    'Spare Parts',
+    'RTO Agent'
+  ];
+  String? _selectedExperience;
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
   startLaunchURL(String url) async {
     // const url = 'https://flutter.dev';
 
@@ -193,39 +212,48 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 20 * s.customWidth, right: 10 * s.customWidth),
                   child: Icon(Icons.search_rounded),
                 ),
-                Container(
-                    height: 40 * s.customHeight,
-                    width: 380 * s.customWidth,
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 15 * s.customHeight),
-                        child: TextField(
-                          cursorColor: Colors.black,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            // filled: true,
-                            fillColor: Colors.white,
-                            focusColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(30),
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedExperience,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedExperience = newValue;
+                      });
+                    },
+                    items: _experiences
+                        .map<DropdownMenuItem<String>>(
+                          (String value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            hintText: 'Enter skills / designation / companies',
-                            hintStyle: const TextStyle(color: Colors.grey),
                           ),
-                        ),
+                        )
+                        .toList(),
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      focusColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                    )),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      hintText: 'Select Experience',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                    ),
+                    style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 SizedBox(
-                  height: 20 * s.customHeight,
+                  height: 30 * s.customHeight,
                   child: VerticalDivider(
                     color: Colors.grey,
                     thickness: 2,
@@ -233,8 +261,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 // PopupMenuButton<String>(
                 //   // color: Colors.grey,
-                //   itemBuilder: (BuildContext context) =>
-                //       <PopupMenuEntry<String>>[
+                //   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                 //     const PopupMenuItem<String>(
                 //       value: '0',
                 //       child: Text('Fresher(less than 1 year)'),
@@ -264,6 +291,10 @@ class _HomePageState extends State<HomePage> {
                 //   ],
                 //   onSelected: (String value) {
                 //     // Handle the selection here
+                //     setState(() {
+                //       _selectedExperience = value;
+                //       _experienceController.text = _getExperienceText(value);
+                //     });
                 //   },
                 //   child: Container(
                 //       height: 40 * s.customHeight,
@@ -271,6 +302,7 @@ class _HomePageState extends State<HomePage> {
                 //       child: Padding(
                 //         padding: EdgeInsets.only(top: 15 * s.customHeight),
                 //         child: TextField(
+                //           controller: _experienceController,
                 //           cursorColor: Colors.black,
                 //           showCursor: true,
                 //           decoration: InputDecoration(
@@ -278,18 +310,15 @@ class _HomePageState extends State<HomePage> {
                 //             fillColor: Colors.white,
                 //             focusColor: Colors.white,
                 //             focusedBorder: OutlineInputBorder(
-                //               borderSide: const BorderSide(
-                //                   color: Colors.white, width: 2.0),
+                //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 //               borderRadius: BorderRadius.circular(30),
                 //             ),
                 //             border: OutlineInputBorder(
-                //               borderSide: const BorderSide(
-                //                   color: Colors.white, width: 2.0),
+                //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 //               borderRadius: BorderRadius.circular(30),
                 //             ),
                 //             enabledBorder: OutlineInputBorder(
-                //               borderSide: const BorderSide(
-                //                   color: Colors.white, width: 2.0),
+                //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
                 //               borderRadius: BorderRadius.circular(30),
                 //             ),
                 //             hintText: 'Select Experience',
@@ -310,8 +339,9 @@ class _HomePageState extends State<HomePage> {
                     width: 170 * s.customWidth,
                     child: Center(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 15 * s.customHeight),
+                        padding: EdgeInsets.only(top: 12 * s.customHeight),
                         child: TextField(
+                          controller: _locationController,
                           cursorColor: Colors.black,
                           showCursor: true,
                           decoration: InputDecoration(
@@ -331,14 +361,32 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             hintText: 'Enter Location',
-                            hintStyle: const TextStyle(color: Colors.grey),
+                            hintStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18.0,
+                            ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
                         ),
                       ),
                     )),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResultPage()));
+                    print("object..........................................${_selectedExperience} , ${_locationController.text}");
+                    if (_selectedExperience != null && _locationController.text.isNotEmpty) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ResultPage(
+                                experience: _selectedExperience.toString(),
+                                location: _locationController.text,
+                              )));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(milliseconds: 500),
+                          content: Text('Please fill in all fields before searching.'),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     height: 40 * s.customHeight,
@@ -351,7 +399,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                )
+                ).px16()
               ],
             ),
           ),
