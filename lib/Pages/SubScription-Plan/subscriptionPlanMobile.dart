@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuerteads/Pages/SubScription-Plan/main_subscription_plan.dart';
+import 'package:fuerteads/widgets/Razorpay.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,9 +25,10 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
 
   @override
   Widget build(BuildContext context) {
+    var razor = RazorPayIntegration(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(233, 233, 233, 1),
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             Expanded(
@@ -41,7 +44,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                           CircleAvatar(
                             radius: 30,
                             backgroundColor: Color.fromRGBO(254, 236, 214, 1),
-                            child: Image.asset(height: 35.0, "assets/logo.png"),
+                            child: Image.asset(height: 35.0, "assets/images/logo.png"),
                           ),
                           20.widthBox,
                           Column(
@@ -182,7 +185,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                               decoration: BoxDecoration(color: leftSelectedOption == 1 ? Colors.deepPurple : Colors.white, shape: BoxShape.circle),
                                             ),
                                           ),
-                                        ),
+                                        ).pOnly(bottom: 25),
 
                                         10.widthBox,
 
@@ -194,7 +197,10 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                               text: "Team Plan",
                                             ),
                                             subHeading(
-                                              text: "Crafted for small teams or business",
+                                              text: "Crafted for small teams or ",
+                                            ),
+                                            subHeading(
+                                              text: "business",
                                             ),
                                           ],
                                         ),
@@ -304,7 +310,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
 
                       // Payment Plan Cupertino Radio Button Line
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Details",
@@ -334,13 +340,35 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                           cursorColor: Colors.black,
                                           decoration: InputDecoration(
                                             labelText: 'Full Name',
-                                            labelStyle: TextStyle(color: Colors.black),
+                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
+                                            errorStyle: TextStyle(color: Colors.red),
+                                          ),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter your Name';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        TextFormField(
+                                          controller: _cityController,
+                                          cursorColor: Colors.black,
+                                          decoration: InputDecoration(
+                                            labelText: 'Address',
+                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.black), // Change border color here
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.black), // Change border color here
+                                            ),
+                                            errorStyle: TextStyle(color: Colors.red),
                                           ),
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -350,37 +378,18 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                           },
                                         ),
                                         TextFormField(
-                                          controller: _cityController,
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            labelText: 'City',
-                                            labelStyle: TextStyle(color: Colors.black),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please enter your city';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                        TextFormField(
                                           controller: _stateController,
                                           cursorColor: Colors.black,
                                           decoration: InputDecoration(
                                             labelText: 'Mobile No.',
-                                            labelStyle: TextStyle(color: Colors.black),
+                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
+                                            errorStyle: TextStyle(color: Colors.red),
                                           ),
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -394,13 +403,14 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                           cursorColor: Colors.black,
                                           decoration: InputDecoration(
                                             labelText: 'Pincode',
-                                            labelStyle: TextStyle(color: Colors.black),
+                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(color: Colors.black), // Change border color here
                                             ),
+                                            errorStyle: TextStyle(color: Colors.red),
                                           ),
                                           keyboardType: TextInputType.number,
                                           validator: (value) {
@@ -435,7 +445,16 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                         children: [
                           Expanded(
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                razor.openSession();
+                                print("...............................");
+
+                                if (_formKey.currentState!.validate()) {
+                                  // razor.initiateRazorPay();
+                                  // If the form is valid, perform your actions here
+                                  print("Form is valid. Proceed with payment.");
+                                }
+                              },
                               child: Container(
                                 height: 40,
                                 decoration: BoxDecoration(

@@ -22,170 +22,83 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
+  final String mobile = "9724******";
+  RangeValues _values = RangeValues(1000.0, 10000.0);
+
   List<Map<String, dynamic>> jobDataList = [
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are seeking a highly skilled and experienced Finishing Incharge to join our company.",
-      "tags": [
-        "Full Time",
-        "Mid Level",
-      ],
+      "jobTitle": "Orr Wilkinson",
+      "phone": "(910) 496-3708",
+      "address": "663 Dewitt Avenue, Catherine, Colorado, 5739",
       "iconData": Icons.work,
       "Image": "assets/8.png",
+      "experience": "3 Year",
+      "vehicle": "Truck",
       "containerColor": Color.fromARGB(255, 207, 247, 115),
     },
     {
-      "jobTitle": "Java Developer",
-      "jobDescription": " Ensure adherence to operational and quality policies and procedures to manage finishing work efficiently and safely and to enable the factory to meet the despatch targets.",
-      "tags": [
-        "Full Time",
-        "Mid Level",
-      ],
+      "jobTitle": "Baxter Perkins",
+      "phone": "(867) 577-3207",
+      "address": "314 Harrison Place, Chalfant, Marshall Islands, 7954",
       "iconData": Icons.work,
       "Image": "assets/1.png",
+      "experience": "3 Year",
+      "vehicle": "Truck",
       "containerColor": Color.fromARGB(255, 129, 251, 219),
     },
     {
-      "jobTitle": "Node Js",
-      "jobDescription": "Overall responsibility for customer interaction leading to customer delight.",
-      "tags": [
-        "Internship",
-        "Mid Level",
-      ],
-      "Image": "assets/2.png",
+      "jobTitle": "Ruthie Goodman",
+      "phone": "(932) 440-3288",
+      "address": "604 Vermont Court, Sunriver, Minnesota, 627",
+      "Image": "assets/2.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 247, 146, 224), // Example color
     },
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "Daily counting of stock.Visual Merchandise, Cleanliness of the counter.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/3.png",
+      "jobTitle": "Ruthie Goodman",
+      "phone": "(932) 440-3288",
+      "address": "604 Vermont Court, Sunriver, Minnesota, 627",
+      "Image": "assets/3.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 175, 154, 244), // Example color
     },
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "To be successful in this role, you should have excellent communication and interpersonal skills, as well as a strong understanding of the medical industry.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/4.png",
+      "jobTitle": "Sherri Velazquez",
+      "phone": "(920) 559-3126",
+      "address": "343 Dahl Court, Axis, Connecticut, 7932",
+      "Image": "assets/4.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 250, 197, 153), // Example color
     },
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are looking for Jr Quality Engineer having minimum two years of experience in Quality control.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/5.png",
+      "jobTitle": "Lori Wilcox",
+      "phone": "(960) 591-2864",
+      "address": "607 Williams Avenue, Gratton, Idaho, 1772",
+      "Image": "assets/5.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 116, 238, 238), // Example color
     },
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "Urgent Hiring for Jr Assistant Engineer- BE Mechanical is must required.- minimum 2 year experience required.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/6.png",
+      "jobTitle": "Irene Cain",
+      "phone": "(812) 526-2641",
+      "address": "647 India Street, Brewster, Massachusetts, 906",
+      "Image": "assets/6.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 106, 201, 245), // Example color
     },
     {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are seeking a dynamic and results-oriented Associate Manager to join our team.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/7.png",
+      "jobTitle": "Arlene Nicholson",
+      "phone": "(981) 482-2253",
+      "address": "781 Ralph Avenue, Hoehne, West Virginia, 1870",
+      "Image": "assets/7.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
       "containerColor": Color.fromARGB(255, 249, 124, 124), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are seeking a highly skilled and experienced Finishing Incharge to join our company.",
-      "tags": [
-        "Full Time",
-        "Mid Level",
-      ],
-      "iconData": Icons.work,
-      "Image": "assets/8.png",
-      "containerColor": Color.fromARGB(255, 224, 224, 224),
-    },
-    {
-      "jobTitle": "Java Developer",
-      "jobDescription": " Ensure adherence to operational and quality policies and procedures to manage finishing work efficiently and safely and to enable the factory to meet the despatch targets.",
-      "tags": [
-        "Full Time",
-        "Mid Level",
-      ],
-      "iconData": Icons.work,
-      "Image": "assets/1.png",
-      "containerColor": Color.fromARGB(255, 217, 255, 245),
-    },
-    {
-      "jobTitle": "Node Js",
-      "jobDescription": "Overall responsibility for customer interaction leading to customer delight.",
-      "tags": [
-        "Internship",
-        "Mid Level",
-      ],
-      "Image": "assets/2.png",
-      "containerColor": const Color.fromRGBO(251, 226, 245, 1), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "Daily counting of stock.Visual Merchandise, Cleanliness of the counter.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/3.png",
-      "containerColor": const Color.fromRGBO(226, 219, 250, 1), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "To be successful in this role, you should have excellent communication and interpersonal skills, as well as a strong understanding of the medical industry.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/4.png",
-      "containerColor": const Color.fromRGBO(255, 234, 217, 1), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are looking for Jr Quality Engineer having minimum two years of experience in Quality control.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/5.png",
-      "containerColor": Color.fromARGB(255, 238, 255, 217), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "Urgent Hiring for Jr Assistant Engineer- BE Mechanical is must required.- minimum 2 year experience required.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/6.png",
-      "containerColor": Color.fromARGB(255, 217, 243, 255), // Example color
-    },
-    {
-      "jobTitle": "Flutter Developer",
-      "jobDescription": "We are seeking a dynamic and results-oriented Associate Manager to join our team.",
-      "tags": [
-        "Part Time",
-        "Full Time",
-      ],
-      "Image": "assets/7.png",
-      "containerColor": Color.fromARGB(255, 255, 217, 217), // Example color
     },
   ];
 
@@ -327,71 +240,125 @@ class _ResultPageState extends State<ResultPage> {
                   SizedBox(
                     width: 40 * s.customWidth,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Icon(
-                      Icons.work_history,
-                      color: green,
-                    ),
-                  ),
-                  AutoSizeText(
-                    "2+ Years Of Experience",
-                    style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
-                  ),
-                  SizedBox(
-                    width: 40 * s.customWidth,
-                  ),
-                  SizedBox(
-                    height: 30 * s.customHeight,
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40 * s.customWidth,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "Salary Range(Month)",
-                            style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 5),
+                  //   child: Icon(
+                  //     Icons.work_history,
+                  //     color: green,
+                  //   ),
+                  // ),
+                  // AutoSizeText(
+                  //   "2+ Years Of Experience",
+                  //   style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
+                  // ),
+                  widget.experience == "Driver"
+                      ? buildCustomDropdownForm(
+                          items: [
+                              "1 Year",
+                              "2 Year",
+                              "3 Year",
+                              "4 Year",
+                              "5 Year",
+                            ],
+                          onChanged: (String? value) {
+                            print("object..................................$value");
+                          }).w(250)
+                      : Container(),
+                  widget.experience == "Driver"
+                      ? SizedBox(
+                          width: 40 * s.customWidth,
+                        )
+                      : Container(),
+                  widget.experience == "Driver"
+                      ? SizedBox(
+                          height: 30 * s.customHeight,
+                          child: VerticalDivider(
+                            color: Colors.grey,
+                            thickness: 2,
                           ),
-                          SizedBox(
-                            width: 10 * s.customWidth,
-                          ),
-                          AutoSizeText(
-                            "₹10000 - 20000",
-                            style: GoogleFonts.aBeeZee(fontSize: 15, color: black, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                        )
+                      : Container(),
+                  widget.experience == "Driver"
+                      ? SizedBox(
+                          width: 40 * s.customWidth,
+                        )
+                      : Container(),
+                  widget.experience == "Driver" || widget.experience == "Vehicle Owner"
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Salary Range (Month)",
+                                  style: GoogleFonts.montserrat(),
+                                ),
+                                50.widthBox,
+                                Container(
+                                  padding: EdgeInsets.all(5),
+                                  child: Text(
+                                    "\₹${_values.start.round()} - \₹${_values.end.round()}",
+                                    style: GoogleFonts.aBeeZee(fontSize: 15, color: black, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            RangeSlider(
+                              values: _values,
+                              activeColor: Colors.yellow,
+                              onChanged: (values) {
+                                setState(() {
+                                  _values = values;
+                                });
+                              },
+                              min: 1000.0,
+                              max: 10000.0,
+                              divisions: (10000 - 1000) ~/ 100,
+                            ).wh(300, 20),
+                          ],
+                        )
+                      : Container(),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Row(
+                  //       children: [
+                  //         AutoSizeText(
+                  //           "Salary Range(Month)",
+                  //           style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 10 * s.customWidth,
+                  //         ),
+                  //         AutoSizeText(
+                  //           "₹10000 - 20000",
+                  //           style: GoogleFonts.aBeeZee(fontSize: 15, color: black, fontWeight: FontWeight.bold),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     SfSlider(
+                  //       showDividers: true,
+                  //       min: 0,
+                  //       max: 100000,
+                  //       value: _value,
+                  //       // interval: 20,
+                  //       showTicks: true,
+                  //       showLabels: true,
+                  //       enableTooltip: true,
+                  //       minorTicksPerInterval: 1,
+                  //       onChanged: (dynamic value) {
+                  //         setState(() {
+                  //           _value = value;
+                  //         });
+                  //       },
+                  //     ).h(30),
+                  //   ],
+                  // ),
+                  Expanded(child: Container()
+                      //  SizedBox(
+                      //   width: 10 * s.customWidth,
+                      // ),
                       ),
-                      SfSlider(
-                        showDividers: true,
-                        min: 0,
-                        max: 100000,
-                        value: _value,
-                        // interval: 20,
-                        showTicks: true,
-                        showLabels: true,
-                        enableTooltip: true,
-                        minorTicksPerInterval: 1,
-                        onChanged: (dynamic value) {
-                          setState(() {
-                            _value = value;
-                          });
-                        },
-                      ).h(30),
-                    ],
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      width: 10 * s.customWidth,
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(right: 20 * s.customWidth),
                     child: InkWell(
@@ -580,10 +547,13 @@ class _ResultPageState extends State<ResultPage> {
                                                   onDetailsTap: () {
                                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => SubscriptionPlan()));
                                                   },
-                                                  onApplyNowTap: () {},
+
                                                   jobTitle: jobData['jobTitle'],
-                                                  jobDescription: jobData['jobDescription'],
-                                                  tags: jobData['tags'],
+                                                  mobile: widget.experience == "Driver" ? mobile : jobData['phone'],
+                                                  address: jobData['address'],
+                                                  experience: jobData['experience'],
+                                                  vehicle: jobData['vehicle'],
+
                                                   imageUrl: jobData['Image'], //jobData[dataIndex].tags,
                                                 ).pOnly(right: 20, bottom: 20),
                                               );
@@ -692,6 +662,56 @@ class _ResultPageState extends State<ResultPage> {
           //   ],
           // ),
         ],
+      ),
+    );
+  }
+
+  Widget buildCustomDropdownForm({
+    required List<String> items,
+    // required String dropdownValue,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return Container(
+      height: 35,
+      child: DropdownButtonFormField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.work_history,
+            color: green,
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.black,
+          )),
+          filled: true,
+          fillColor: Colors.white,
+          hintText: "Select your Experience",
+          hintStyle: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+          border: OutlineInputBorder(),
+        ),
+        // value: dropdownValue,
+        items: items.map((String item) {
+          return DropdownMenuItem(
+            value: item,
+            child: Text(
+              item,
+              style: GoogleFonts.poppins(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
+        icon: Icon(
+          Icons.arrow_drop_down_circle,
+          color: Colors.black,
+        ),
+        dropdownColor: Colors.blue.shade50,
       ),
     );
   }
@@ -823,21 +843,23 @@ class _ResultPageState extends State<ResultPage> {
 
 class CustomJobContainer extends StatefulWidget {
   final VoidCallback onDetailsTap;
-  final VoidCallback onApplyNowTap;
   final String jobTitle;
-  final String jobDescription;
-  final List<String> tags;
+  final String mobile;
+  final String address;
+  final String experience;
+  final String vehicle;
   final Color containerColor;
   final String imageUrl;
 
   CustomJobContainer({
     required this.onDetailsTap,
-    required this.onApplyNowTap,
     required this.jobTitle,
-    required this.jobDescription,
-    required this.tags,
     required this.containerColor,
     required this.imageUrl,
+    required this.mobile,
+    required this.address,
+    required this.experience,
+    required this.vehicle,
   });
 
   @override
@@ -864,7 +886,7 @@ class _CustomJobContainerState extends State<CustomJobContainer> {
         border: Border.all(color: const Color.fromARGB(40, 0, 0, 0), width: 1),
       ),
       width: 300,
-      height: 280,
+      height: 250,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -884,7 +906,7 @@ class _CustomJobContainerState extends State<CustomJobContainer> {
                   ],
                 ),
                 child: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundColor: Colors.white,
                   child: ClipOval(
                     child: Image.asset(
@@ -918,40 +940,46 @@ class _CustomJobContainerState extends State<CustomJobContainer> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      10.heightBox,
+                      5.heightBox,
                       Text(
                         widget.jobTitle,
-                        style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                      Text(
+                        "+91 - ${widget.mobile}",
+                        style: TextStyle(
+                          // color: Colors.grey.shade700,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        widget.address,
+                        style: TextStyle(
+                          // color: Colors.grey.shade700,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                      Text(
+                        widget.experience,
+                        style: TextStyle(
+                          // color: Colors.grey.shade700,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        widget.vehicle,
+                        style: TextStyle(
+                          // color: Colors.grey.shade700,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
                       ),
                       5.heightBox,
-                      Expanded(
-                        child: Text(
-                          widget.jobDescription,
-                          style: GoogleFonts.montserrat(fontSize: 11, fontWeight: FontWeight.w500, height: 2),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                        ),
-                      ),
-                      Container(
-                        // color: Colors.amber,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: widget.tags
-                                .map((tag) => Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: Color.fromARGB(77, 0, 0, 0))),
-                                      child: Center(
-                                        child: Text(
-                                          tag,
-                                          style: GoogleFonts.montserrat(fontSize: 10, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ).pOnly(right: 10))
-                                .toList(),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

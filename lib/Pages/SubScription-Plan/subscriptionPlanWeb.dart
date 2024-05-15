@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fuerteads/Pages/SubScription-Plan/main_subscription_plan.dart';
+import 'package:fuerteads/widgets/Razorpay.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:velocity_x/velocity_x.dart';
@@ -28,6 +30,7 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
 
   @override
   Widget build(BuildContext context) {
+    var razor = RazorPayIntegration(context);
     return Scaffold(
       backgroundColor: const Color.fromRGBO(233, 233, 233, 1),
       body: Align(
@@ -335,7 +338,7 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
 
                                   10.heightBox,
 
-                                  // Discount Code Container
+                                  // Form
                                   Row(
                                     children: [
                                       Expanded(
@@ -351,17 +354,44 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                                   children: <Widget>[
                                                     TextFormField(
                                                       controller: _addressController,
+                                                      // cursorHeight: 16,
                                                       cursorColor: Colors.black,
                                                       decoration: InputDecoration(
-                                                        labelText: 'Full Name',
-                                                        labelStyle: TextStyle(color: Colors.black),
-                                                        enabledBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                        focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                      ),
+                                                          contentPadding: EdgeInsets.zero,
+                                                          labelText: 'Full Name',
+                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                                          enabledBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          focusedBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          errorStyle: TextStyle(color: Colors.red)),
+                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Please enter your Name';
+                                                        }
+                                                        return null;
+                                                      },
+                                                    ),
+                                                    10.heightBox,
+                                                    TextFormField(
+                                                      controller: _cityController,
+                                                      cursorColor: Colors.black,
+                                                      decoration: InputDecoration(
+                                                          contentPadding: EdgeInsets.zero,
+                                                          labelText: 'Address',
+                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                                          enabledBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          focusedBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          errorStyle: TextStyle(color: Colors.red)),
+                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
                                                           return 'Please enter your address';
@@ -369,59 +399,46 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                                         return null;
                                                       },
                                                     ),
-                                                    TextFormField(
-                                                      controller: _cityController,
-                                                      cursorColor: Colors.black,
-                                                      decoration: InputDecoration(
-                                                        labelText: 'City',
-                                                        labelStyle: TextStyle(color: Colors.black),
-                                                        enabledBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                        focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                      ),
-                                                      validator: (value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Please enter your city';
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
+                                                    10.heightBox,
                                                     TextFormField(
                                                       controller: _stateController,
                                                       cursorColor: Colors.black,
+                                                      keyboardType: TextInputType.phone,
                                                       decoration: InputDecoration(
-                                                        labelText: 'Mobile No.',
-                                                        labelStyle: TextStyle(color: Colors.black),
-                                                        enabledBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                        focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                      ),
+                                                          contentPadding: EdgeInsets.zero,
+                                                          labelText: 'Mobile No.',
+                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                                          enabledBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          focusedBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          errorStyle: TextStyle(color: Colors.red)),
+                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
-                                                          return 'Please enter your state';
+                                                          return 'Please enter your mobile no.';
                                                         }
                                                         return null;
                                                       },
                                                     ),
+                                                    10.heightBox,
                                                     TextFormField(
                                                       controller: _pincodeController,
                                                       cursorColor: Colors.black,
                                                       decoration: InputDecoration(
-                                                        labelText: 'Pincode',
-                                                        labelStyle: TextStyle(color: Colors.black),
-                                                        enabledBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                        focusedBorder: UnderlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                        ),
-                                                      ),
+                                                          contentPadding: EdgeInsets.zero,
+                                                          labelText: 'Pincode',
+                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                                          enabledBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          focusedBorder: UnderlineInputBorder(
+                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
+                                                          ),
+                                                          errorStyle: TextStyle(color: Colors.red)),
+                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
                                                       keyboardType: TextInputType.number,
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
@@ -456,7 +473,14 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                     children: [
                                       Expanded(
                                         child: InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            razor.openSession();
+                                            // if (_formKey.currentState!.validate()) {
+                                            //   // razor.initiateRazorPay();
+                                            //   // If the form is valid, perform your actions here
+                                            //   print("Form is valid. Proceed with payment.");
+                                            // }
+                                          },
                                           child: Container(
                                             height: 40,
                                             decoration: BoxDecoration(

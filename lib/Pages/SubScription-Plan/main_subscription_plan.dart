@@ -38,6 +38,7 @@ class subHeading extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.poppins(fontSize: 10, color: Color.fromARGB(229, 117, 117, 117), fontWeight: FontWeight.w400),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
