@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fuerteads/extra.dart';
 import 'package:fuerteads/screens/homeScreen/resultPage.dart';
 import 'package:fuerteads/utils/homeUtiles.dart';
 import 'package:fuerteads/values/screen.dart';
@@ -51,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  TextEditingController _experienceController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
   // String _selectedExperience = '';
   List<String> _experiences = [
@@ -61,12 +59,6 @@ class _HomePageState extends State<HomePage> {
     'RTO Agent'
   ];
   String? _selectedExperience;
-
-  @override
-  void dispose() {
-    _locationController.dispose();
-    super.dispose();
-  }
 
   startLaunchURL(String url) async {
     // const url = 'https://flutter.dev';
@@ -104,7 +96,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     Screen s = Screen(context);
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
@@ -166,27 +157,279 @@ class _HomePageState extends State<HomePage> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            SizedBox(
-              height: 100 * s.customHeight,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  height: 400,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                            Color.fromARGB(255, 41, 255, 120),
+                            Colors.yellow,
+                            Colors.amberAccent,
+                          ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Stack(
+                          children: [
+                            generatePositionedCircle(
+                              left: MediaQuery.of(context).size.width / 50,
+                              top: 15,
+                              radius: 25,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: MediaQuery.of(context).size.width / 15,
+                              top: 85,
+                              radius: 45,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: MediaQuery.of(context).size.width / 8,
+                              top: 12,
+                              radius: 33,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: MediaQuery.of(context).size.width / 5.5,
+                              top: 80,
+                              radius: 65,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: MediaQuery.of(context).size.width / 2,
+                              top: 10,
+                              radius: 32,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: 520,
+                              top: 100,
+                              radius: 28,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: 620,
+                              top: 15,
+                              radius: 45,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: 760,
+                              top: 100,
+                              radius: 50,
+                              imagePath: 'assets/8.png',
+                            ),
+                            generatePositionedCircle(
+                              left: 880,
+                              top: 15,
+                              radius: 35,
+                              imagePath: 'assets/8.png',
+                            ),
+                            Positioned(
+                              top: 220,
+                              left: 340 * s.customWidth,
+                              child: Text(
+                                "Search For your next job",
+                                style: GoogleFonts.poppins(fontSize: 28, color: Colors.black, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Positioned(
+                              top: 260,
+                              left: 300 * s.customWidth,
+                              child: Text(
+                                "When you are searching for a job, there are a few things you can do to",
+                                style: GoogleFonts.poppins(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            Positioned(
+                              top: 275,
+                              left: 400 * s.customWidth,
+                              child: Text(
+                                "get the most out of your search ",
+                                style: GoogleFonts.poppins(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ).py20(),
+
+                      // Job Search Bar
+                      Positioned(
+                        bottom: 0,
+                        left: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 55,
+                              width: MediaQuery.of(context).size.width / 1.9,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 6,
+                                      offset: Offset(0, 4),
+                                      color: Colors.grey.shade400,
+                                    )
+                                  ],
+                                  // color: Colors.white,
+                                  borderRadius: BorderRadius.horizontal(left: Radius.circular(50.0), right: Radius.circular(50.0))),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10 * s.customWidth),
+                                    child: CircleAvatar(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Color.fromRGBO(0, 208, 101, 1),
+                                      child: Icon(
+                                        Icons.search,
+                                        size: 20.0,
+                                      ),
+                                      radius: 19,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Theme(
+                                      data: ThemeData(focusColor: Colors.amber, splashColor: Colors.transparent),
+                                      child: DropdownButtonFormField<String>(
+                                        value: _selectedExperience,
+                                        borderRadius: BorderRadius.circular(10),
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            _selectedExperience = newValue;
+                                          });
+                                        },
+                                        items: _experiences
+                                            .map<DropdownMenuItem<String>>(
+                                              (String value) => DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          focusColor: Colors.white,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          hintText: 'Enter skills / designation / companies',
+                                          hintStyle: GoogleFonts.lato(
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                        style: GoogleFonts.lato(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 30 * s.customHeight,
+                                    child: VerticalDivider(
+                                      color: Colors.grey,
+                                      thickness: 2,
+                                    ),
+                                  ),
+                                  Container(
+                                      height: 40 * s.customHeight,
+                                      width: 170 * s.customWidth,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(top: 3 * s.customHeight),
+                                          child: TextField(
+                                            controller: _locationController,
+                                            cursorColor: Colors.black,
+                                            showCursor: true,
+                                            decoration: InputDecoration(
+                                              // filled: true,
+                                              fillColor: Colors.white,
+                                              focusColor: Colors.white,
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                                borderRadius: BorderRadius.circular(30),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                                borderRadius: BorderRadius.circular(30),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                                                borderRadius: BorderRadius.circular(30),
+                                              ),
+                                              hintText: 'Enter Location',
+                                              hintStyle: GoogleFonts.lato(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                            style: GoogleFonts.lato(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      print("object..........................................${_selectedExperience} , ${_locationController.text}");
+                                      if (_selectedExperience != null && _locationController.text.isNotEmpty) {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => ResultPage(
+                                                  experience: _selectedExperience.toString(),
+                                                  location: _locationController.text,
+                                                )));
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            duration: Duration(milliseconds: 500),
+                                            content: Text('Please fill in all fields before searching.'),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 40 * s.customHeight,
+                                      width: 110 * s.customWidth,
+                                      decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(30)),
+                                      child: Center(
+                                        child: Text(
+                                          "Search",
+                                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                                        ),
+                                      ),
+                                    ),
+                                  ).px16()
+                                ],
+                              ).px8(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Text(
-            //     "Find your driving job now",
-            //     style: GoogleFonts.roboto(
-            //         color: Colors.black,
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 40),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 10 * s.customHeight,
-            // ),
-            // Text(
-            //   "1 lakh+ driving jobs for you to explore",
-            //   style: TextStyle(
-            //       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-            // ),
+            SizedBox(
+              height: 60 * s.customHeight,
+            ),
             CarouselSlider(
               items: sliderTexts.map((text) {
                 int index = sliderTexts.indexOf(text);
@@ -231,476 +474,128 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal, // Set scroll direction
               ),
             ),
-
             SizedBox(
-              height: 20 * s.customHeight,
+              height: 60 * s.customHeight,
             ),
-            Container(
-              height: 75 * s.customHeight,
-              width: 765 * s.customWidth,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40)),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 20 * s.customWidth, right: 10 * s.customWidth),
-                    child: Icon(Icons.search_rounded),
-                  ),
-                  Expanded(
-                    child: DropdownButtonFormField<String>(
-                      value: _selectedExperience,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedExperience = newValue;
-                        });
-                      },
-                      items: _experiences
-                          .map<DropdownMenuItem<String>>(
-                            (String value) => DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        focusColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        hintText: 'Enter skills / designation / companies',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                      ),
-                      style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30 * s.customHeight,
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
-                  ),
-                  // PopupMenuButton<String>(
-                  //   // color: Colors.grey,
-                  //   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                  //     const PopupMenuItem<String>(
-                  //       value: '0',
-                  //       child: Text('Fresher(less than 1 year)'),
-                  //     ),
-                  //     const PopupMenuItem<String>(
-                  //       value: '1',
-                  //       child: Text('1 year'),
-                  //     ),
-
-                  //     const PopupMenuItem<String>(
-                  //       value: '2',
-                  //       child: Text('2 years'),
-                  //     ),
-                  //     const PopupMenuItem<String>(
-                  //       value: '3',
-                  //       child: Text('3 years'),
-                  //     ),
-                  //     const PopupMenuItem<String>(
-                  //       value: '4',
-                  //       child: Text('4 years'),
-                  //     ),
-                  //     const PopupMenuItem<String>(
-                  //       value: '5',
-                  //       child: Text('5 years'),
-                  //     ),
-                  //     // Add more PopupMenuItems as needed
-                  //   ],
-                  //   onSelected: (String value) {
-                  //     // Handle the selection here
-                  //     setState(() {
-                  //       _selectedExperience = value;
-                  //       _experienceController.text = _getExperienceText(value);
-                  //     });
-                  //   },
-                  //   child: Container(
-                  //       height: 40 * s.customHeight,
-                  //       width: 200 * s.customWidth,
-                  //       child: Padding(
-                  //         padding: EdgeInsets.only(top: 15 * s.customHeight),
-                  //         child: TextField(
-                  //           controller: _experienceController,
-                  //           cursorColor: Colors.black,
-                  //           showCursor: true,
-                  //           decoration: InputDecoration(
-                  //             // filled: true,
-                  //             fillColor: Colors.white,
-                  //             focusColor: Colors.white,
-                  //             focusedBorder: OutlineInputBorder(
-                  //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  //               borderRadius: BorderRadius.circular(30),
-                  //             ),
-                  //             border: OutlineInputBorder(
-                  //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  //               borderRadius: BorderRadius.circular(30),
-                  //             ),
-                  //             enabledBorder: OutlineInputBorder(
-                  //               borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                  //               borderRadius: BorderRadius.circular(30),
-                  //             ),
-                  //             hintText: 'Select Experience',
-                  //             hintStyle: const TextStyle(color: Colors.grey),
-                  //           ),
-                  //         ),
-                  //       )),
-                  // ),
-                  // SizedBox(
-                  //   height: 20 * s.customHeight,
-                  //   child: VerticalDivider(
-                  //     color: Colors.grey,
-                  //     thickness: 2,
-                  //   ),
-                  // ),
-                  Container(
-                      height: 40 * s.customHeight,
-                      width: 170 * s.customWidth,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 12 * s.customHeight),
-                          child: TextField(
-                            controller: _locationController,
-                            cursorColor: Colors.black,
-                            showCursor: true,
-                            decoration: InputDecoration(
-                              // filled: true,
-                              fillColor: Colors.white,
-                              focusColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              hintText: 'Enter Location',
-                              hintStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+            CarouselSlider(
+              items: sliderTexts.map((text) {
+                int index = sliderTexts.indexOf(text);
+                return Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    color: myColor[index],
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AutoSizeText(
+                          text,
+                          style: GoogleFonts.roboto(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
                           ),
                         ),
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      print("object..........................................${_selectedExperience} , ${_locationController.text}");
-                      if (_selectedExperience != null && _locationController.text.isNotEmpty) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ResultPage(
-                                  experience: _selectedExperience.toString(),
-                                  location: _locationController.text,
-                                )));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: Duration(milliseconds: 500),
-                            content: Text('Please fill in all fields before searching.'),
+                        SizedBox(height: 10 * s.customHeight),
+                        AutoSizeText(
+                          sliderSubTexts[index],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
-                        );
-                      }
-                    },
-                    child: Container(
-                      height: 40 * s.customHeight,
-                      width: 110 * s.customWidth,
-                      decoration: BoxDecoration(color: Colors.yellow, borderRadius: BorderRadius.circular(30)),
-                      child: Center(
-                        child: Text(
-                          "Search",
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                         ),
-                      ),
+                      ],
                     ),
-                  ).px16()
-                ],
+                  ),
+                );
+              }).toList(),
+              options: CarouselOptions(
+                height: 150 * s.customHeight, // Adjust height as needed
+                enableInfiniteScroll: true, // Allows infinite scrolling
+                autoPlay: true, // Automatically scroll items
+                autoPlayInterval: Duration(seconds: 3), // Set auto-play interval
+                autoPlayAnimationDuration: Duration(milliseconds: 800), // Animation duration
+                autoPlayCurve: Curves.fastOutSlowIn, // Animation curve
+                // enlargeCenterPage: true, // Enlarge the centered item
+                scrollDirection: Axis.horizontal, // Set scroll direction
               ),
             ),
-            15.heightBox,
-
-            // Suggested Job Heading
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Suggested searches",
-                  style: GoogleFonts.poppins(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w600),
-                )
-              ],
+            SizedBox(
+              height: 60 * s.customHeight,
             ),
-            20.heightBox,
-
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 5.0,
-              runSpacing: 5.0,
-              direction: Axis.horizontal,
-              children: <Widget>[
-                CustomButton1(
-                  onTap: () {},
-                  text: "Founder",
-                ),
-                CustomButton1(onTap: () {}, text: "Founding Partner"),
-                CustomButton1(onTap: () {}, text: "Personal Assistant"),
-                CustomButton1(onTap: () {}, text: "Project Manager"),
-                CustomButton1(onTap: () {}, text: "Co-Founder"),
-                CustomButton1(onTap: () {}, text: "Managing Director"),
-                CustomButton1(onTap: () {}, text: "Java Developer"),
-                CustomButton1(onTap: () {}, text: "Software Developer"),
-                CustomButton1(onTap: () {}, text: "Game Developer"),
-                CustomButton1(onTap: () {}, text: "Shopify Developer"),
-                CustomButton1(onTap: () {}, text: "Graphic Designer"),
-              ],
-            ).px(100),
-
-            15.heightBox,
-
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 70.0),
-              child: Wrap(
-                spacing: 10.0, // Spacing between items
-                runSpacing: 10.0, // Spacing between lines
-                children: [
-                  CustomJobContainer1(
-                    imageUrl: 'assets/8.png',
-                    jobTitle: "Data Scientist",
-                    jobLocation: 'California USA',
-                    salaryText: "\$45k - \$55k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/5.png',
-                    jobTitle: "Virtual Schedular - Remote ",
-                    jobLocation: 'NewYork Google Inc',
-                    salaryText: "\$40k - \$48k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/f.png',
-                    jobTitle: "Patient Care Advocate",
-                    jobLocation: 'Washington Resources Inc.',
-                    salaryText: "\$55k - \$60k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/4.png',
-                    jobTitle: "Java Developer",
-                    jobLocation: 'Bangalore India',
-                    salaryText: "\$25k - \$35k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/3.png',
-                    jobTitle: "Software Developer",
-                    jobLocation: 'Mumbai India',
-                    salaryText: "\$35k - \$45k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/2.png',
-                    jobTitle: "C C++ Developer",
-                    jobLocation: 'Hyderabad India.',
-                    salaryText: "\$35k - \$40k per month ",
-                  ),
-                  CustomJobContainer1(
-                    imageUrl: 'assets/1.png',
-                    jobTitle: "Mechanical engineer",
-                    jobLocation: 'Ahmadabad Gujarat',
-                    salaryText: "\$15k - \$20k per month ",
-                  ),
-                ],
-              ),
-            ),
-
-            30.heightBox,
           ],
         ),
       ),
     );
   }
+
+  Widget generatePositionedCircle({
+    required double left,
+    required double top,
+    required double radius,
+    required String imagePath,
+  }) {
+    return Positioned(
+      left: left,
+      top: top,
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        radius: radius,
+        child: ClipOval(
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildCustomDropdownForm({
+    required List<String> items,
+    // required String dropdownValue,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return Container(
+      height: 48,
+      child: Theme(
+        data: ThemeData(focusColor: Colors.amber, splashColor: Colors.transparent),
+        child: DropdownButtonFormField(
+          value: _selectedExperience,
+          decoration: InputDecoration(
+            enabled: false,
+            filled: false,
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+            fillColor: Colors.white,
+            hintText: "Select an Option",
+            hintStyle: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+          ),
+          // value: dropdownValue,
+          items: items.map((String item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                style: GoogleFonts.poppins(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            );
+          }).toList(),
+          onChanged: onChanged,
+          icon: Icon(
+            Icons.arrow_drop_down_circle,
+            color: Colors.black,
+          ),
+          dropdownColor: Colors.white,
+        ),
+      ),
+    );
+  }
 }
-
-// class CustomButton extends StatelessWidget {
-//   final VoidCallback onTap;
-//   final String text;
-
-//   const CustomButton({Key? key, required this.text, required this.onTap}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       onTap: onTap,
-//       child: Container(
-//         height: 40,
-//         width: 150,
-//         padding: EdgeInsets.all(8),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.horizontal(
-//             left: Radius.circular(50),
-//             right: Radius.circular(50),
-//           ),
-//           color: Colors.white,
-//           border: Border.all(color: Colors.black),
-//         ),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Flexible(
-//               child: Text(
-//                 text,
-//                 overflow: TextOverflow.ellipsis,
-//                 style: GoogleFonts.poppins(
-//                   fontSize: 13,
-//                   color: Colors.black,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//             ),
-//             SizedBox(width: 5),
-//             Icon(
-//               Icons.search,
-//               size: 18.0,
-//               color: Colors.black,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class CustomJobContainer extends StatefulWidget {
-//   // final VoidCallback onDetailsTap;
-//   // final VoidCallback onApplyNowTap;
-//   final String jobTitle;
-//   final String jobLocation;
-//   final String salaryText;
-
-//   // final Color containerColor;
-//   final String imageUrl;
-
-//   CustomJobContainer({
-//     // required this.onDetailsTap,
-//     // required this.onApplyNowTap,
-//     required this.jobTitle,
-//     required this.jobLocation,
-//     required this.salaryText,
-
-//     // required this.containerColor,
-//     required this.imageUrl,
-//   });
-
-//   @override
-//   State<CustomJobContainer> createState() => _CustomJobContainerState();
-// }
-
-// class _CustomJobContainerState extends State<CustomJobContainer> {
-//   bool isBookmarked = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.white, // Shadow color
-//           ),
-//         ],
-//         borderRadius: BorderRadius.circular(10),
-//         border: Border.all(color: Colors.grey.shade300, width: 1),
-//       ),
-//       width: 270,
-//       height: 220,
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               CircleAvatar(
-//                 radius: 24,
-//                 backgroundColor: Colors.grey.shade200,
-//                 child: ClipOval(
-//                     child: Image.asset(
-//                   height: 22,
-//                   width: 22,
-//                   widget.imageUrl,
-//                 )),
-//               ),
-//             ],
-//           ),
-//           Expanded(
-//             child: Row(
-//               mainAxisSize: MainAxisSize.max,
-//               children: [
-//                 Expanded(
-//                   child: Column(
-//                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       10.heightBox,
-//                       Text(
-//                         widget.jobTitle,
-//                         style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 16),
-//                       ),
-//                       5.heightBox,
-//                       Expanded(
-//                         child: Text(
-//                           widget.jobLocation,
-//                           style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey.shade400, fontWeight: FontWeight.w500, height: 2),
-//                           overflow: TextOverflow.ellipsis,
-//                           maxLines: 3,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           10.heightBox,
-//           Row(
-//             children: [
-//               Expanded(
-//                 child: Material(
-//                   color: Colors.transparent,
-//                   child: InkWell(
-//                     borderRadius: BorderRadius.circular(10),
-//                     onTap: () {},
-//                     child: Container(
-//                       height: 35,
-//                       decoration: BoxDecoration(borderRadius: BorderRadius.horizontal(left: Radius.circular(50), right: Radius.circular(50)), color: Colors.transparent, border: Border.all()),
-//                       child: Center(
-//                         child: Text(
-//                           widget.salaryText,
-//                           style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 13),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(width: 10),
-//             ],
-//           ),
-//         ],
-//       ).p(15),
-//     );
-//   }
-// }

@@ -1,3 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final Icon icon;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final TextInputType? keyboardType;
+
+  const CustomTextField({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    this.validator,
+    this.obscureText = false,
+    required this.icon,
+    this.keyboardType,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      cursorColor: Colors.black,
+      decoration: InputDecoration(
+        prefixIcon: icon,
+        floatingLabelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        hintText: hintText,
+        labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black), // Change border color here
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black), // Change border color here
+        ),
+        errorStyle: TextStyle(color: Colors.red),
+      ),
+      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+      validator: validator,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+    );
+  }
+}
+
+
+
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:velocity_x/velocity_x.dart';

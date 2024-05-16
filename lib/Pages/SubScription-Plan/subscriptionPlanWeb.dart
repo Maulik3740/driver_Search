@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fuerteads/Pages/SubScription-Plan/main_subscription_plan.dart';
 import 'package:fuerteads/widgets/Razorpay.dart';
+import 'package:fuerteads/widgets/textFiled.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -352,23 +353,10 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                                 key: _formKey,
                                                 child: Column(
                                                   children: <Widget>[
-                                                    TextFormField(
+                                                    CustomTextField(
                                                       controller: _addressController,
-                                                      // cursorHeight: 16,
-                                                      cursorColor: Colors.black,
-                                                      decoration: InputDecoration(
-                                                          contentPadding: EdgeInsets.zero,
-                                                          labelText: 'Full Name',
-                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                                          enabledBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          focusedBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          errorStyle: TextStyle(color: Colors.red)),
-                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
-
+                                                      hintText: 'Full Name',
+                                                      icon: Icon(Icons.person),
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
                                                           return 'Please enter your Name';
@@ -377,21 +365,10 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                                       },
                                                     ),
                                                     10.heightBox,
-                                                    TextFormField(
+                                                    CustomTextField(
                                                       controller: _cityController,
-                                                      cursorColor: Colors.black,
-                                                      decoration: InputDecoration(
-                                                          contentPadding: EdgeInsets.zero,
-                                                          labelText: 'Address',
-                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                                          enabledBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          focusedBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          errorStyle: TextStyle(color: Colors.red)),
-                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+                                                      hintText: 'Address',
+                                                      icon: Icon(Icons.location_on_rounded),
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
                                                           return 'Please enter your address';
@@ -400,58 +377,37 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                                       },
                                                     ),
                                                     10.heightBox,
-                                                    TextFormField(
+                                                    CustomTextField(
                                                       controller: _stateController,
-                                                      cursorColor: Colors.black,
-                                                      keyboardType: TextInputType.phone,
-                                                      decoration: InputDecoration(
-                                                          contentPadding: EdgeInsets.zero,
-                                                          labelText: 'Mobile No.',
-                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                                          enabledBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          focusedBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          errorStyle: TextStyle(color: Colors.red)),
-                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+                                                      hintText: 'Mobile No.',
+                                                      icon: Icon(Icons.phone),
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
-                                                          return 'Please enter your mobile no.';
+                                                          return 'Please enter your state';
+                                                        } else if (value.length != 10) {
+                                                          return 'Mobile no. must be 10 digits';
                                                         }
                                                         return null;
                                                       },
                                                     ),
                                                     10.heightBox,
-                                                    TextFormField(
+                                                    CustomTextField(
                                                       controller: _pincodeController,
-                                                      cursorColor: Colors.black,
-                                                      decoration: InputDecoration(
-                                                          contentPadding: EdgeInsets.zero,
-                                                          labelText: 'Pincode',
-                                                          labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                                          enabledBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          focusedBorder: UnderlineInputBorder(
-                                                            borderSide: BorderSide(color: Colors.black), // Change border color here
-                                                          ),
-                                                          errorStyle: TextStyle(color: Colors.red)),
-                                                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+                                                      hintText: 'Pincode',
+                                                      icon: Icon(Icons.pin),
                                                       keyboardType: TextInputType.number,
                                                       validator: (value) {
                                                         if (value!.isEmpty) {
                                                           return 'Please enter your pincode';
                                                         } else if (value.length != 6) {
-                                                          return 'pincode must be 6 digits';
+                                                          return 'Pincode must be 6 digits';
                                                         } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                                          return 'pincode must be number';
+                                                          return 'Pincode must be a number';
                                                         }
-                                                        return null;
+                                                        return "null";
                                                       },
                                                     ),
-                                                    SizedBox(height: 20),
+                                                    SizedBox(height: 10),
                                                   ],
                                                 ),
                                               ).px24(),
@@ -474,12 +430,10 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () {
-                                            razor.openSession();
-                                            // if (_formKey.currentState!.validate()) {
-                                            //   // razor.initiateRazorPay();
-                                            //   // If the form is valid, perform your actions here
-                                            //   print("Form is valid. Proceed with payment.");
-                                            // }
+                                            if (_formKey.currentState!.validate()) {
+                                              razor.openSession();
+                                              // razor.initiateRazorPay();
+                                            }
                                           },
                                           child: Container(
                                             height: 40,

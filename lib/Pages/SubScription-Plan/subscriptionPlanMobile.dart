@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuerteads/Pages/SubScription-Plan/main_subscription_plan.dart';
 import 'package:fuerteads/widgets/Razorpay.dart';
-
+import 'package:fuerteads/widgets/textFiled.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -335,20 +335,10 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                     key: _formKey,
                                     child: Column(
                                       children: <Widget>[
-                                        TextFormField(
+                                        CustomTextField(
                                           controller: _addressController,
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            labelText: 'Full Name',
-                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            errorStyle: TextStyle(color: Colors.red),
-                                          ),
+                                          hintText: 'Full Name',
+                                          icon: Icon(Icons.person),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your Name';
@@ -356,20 +346,10 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
-                                        TextFormField(
+                                        CustomTextField(
                                           controller: _cityController,
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            labelText: 'Address',
-                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            errorStyle: TextStyle(color: Colors.red),
-                                          ),
+                                          hintText: 'Address',
+                                          icon: Icon(Icons.location_on_rounded),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your address';
@@ -377,20 +357,10 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
-                                        TextFormField(
+                                        CustomTextField(
                                           controller: _stateController,
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            labelText: 'Mobile No.',
-                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            errorStyle: TextStyle(color: Colors.red),
-                                          ),
+                                          hintText: 'Mobile No.',
+                                          icon: Icon(Icons.phone),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your state';
@@ -398,30 +368,20 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
-                                        TextFormField(
+                                        CustomTextField(
                                           controller: _pincodeController,
-                                          cursorColor: Colors.black,
-                                          decoration: InputDecoration(
-                                            labelText: 'Pincode',
-                                            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.black), // Change border color here
-                                            ),
-                                            errorStyle: TextStyle(color: Colors.red),
-                                          ),
+                                          hintText: 'Pincode',
+                                          icon: Icon(Icons.pin),
                                           keyboardType: TextInputType.number,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please enter your pincode';
                                             } else if (value.length != 6) {
-                                              return 'pincode must be 6 digits';
+                                              return 'Pincode must be 6 digits';
                                             } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                              return 'pincode must be number';
+                                              return 'Pincode must be a number';
                                             }
-                                            return null;
+                                            return "null";
                                           },
                                         ),
                                         SizedBox(height: 20),
@@ -430,8 +390,6 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                   ).px24(),
 
                                   8.heightBox,
-
-                                  // 30% Discount code heading
                                 ],
                               ).p(8),
                             ).pOnly(right: 5.0),
@@ -451,7 +409,6 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
 
                                 if (_formKey.currentState!.validate()) {
                                   // razor.initiateRazorPay();
-                                  // If the form is valid, perform your actions here
                                   print("Form is valid. Proceed with payment.");
                                 }
                               },

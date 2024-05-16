@@ -443,7 +443,9 @@ class _ResultPageState extends State<ResultPage> {
                                       "Contract",
                                     ],
                                   ),
-                                  Divider().px16(),
+                                  Divider(
+                                    color: Colors.black,
+                                  ).px16(),
                                   DropdownWidget(
                                     name: "Work Type",
                                     items: [
@@ -452,7 +454,9 @@ class _ResultPageState extends State<ResultPage> {
                                       "Hybrid"
                                     ],
                                   ),
-                                  Divider().px16(),
+                                  Divider(
+                                    color: Colors.black,
+                                  ).px16(),
                                   DropdownWidget(
                                     name: "Employment Type",
                                     items: [
@@ -461,7 +465,9 @@ class _ResultPageState extends State<ResultPage> {
                                       "Hybrid"
                                     ],
                                   ),
-                                  Divider().px16(),
+                                  Divider(
+                                    color: Colors.black,
+                                  ).px16(),
                                   DropdownWidget(
                                     name: "Job Functions",
                                     items: [
@@ -502,13 +508,19 @@ class _ResultPageState extends State<ResultPage> {
                                 ],
                               ),
                               Expanded(
-                                child: SizedBox(
-                                  width: 160 * s.customWidth,
-                                ),
-                              ),
+                                  child: Container(
+                                color: Colors.transparent,
+                                width: double.infinity,
+                                height: 35 * s.customHeight,
+                              )
+                                  //  SizedBox(
+                                  //   width: 160 * s.customWidth,
+                                  // ),
+                                  ),
                               Container(
                                   height: 35 * s.customHeight,
-                                  width: 120 * s.customWidth,
+                                  // width: 120 * s.customWidth,
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade200)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -531,7 +543,7 @@ class _ResultPageState extends State<ResultPage> {
                                 width: double.infinity,
                                 child: LayoutBuilder(
                                   builder: (BuildContext context, BoxConstraints constraints) {
-                                    int numberOfColumns = constraints.maxWidth > 1200 ? 5 : (constraints.maxWidth < 600 ? 2 : 3); // Adjust based on screen width
+                                    int numberOfColumns = constraints.maxWidth > 1100 ? 5 : (constraints.maxWidth >= 800 && constraints.maxWidth <= 1100 ? 4 : (constraints.maxWidth < 600 ? 2 : 3));
                                     int numberOfRows = (jobDataList.length / numberOfColumns).ceil(); //jobData.length  = at 10
                                     return Column(
                                       children: List.generate(numberOfRows, (index) {
@@ -1064,7 +1076,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
         Visibility(
           visible: _showDropdown,
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               children: widget.items.asMap().entries.map((entry) {
                 int index = entry.key;
@@ -1089,7 +1101,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                         },
                       ),
                     ),
-                    title: Text(item, style: GoogleFonts.montserrat(fontSize: 14)),
+                    title: Text(item, style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.w600)),
                   ),
                 );
               }).toList(),
