@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fuerteads/Pages/SubScription-Plan/subscriptionPlanWeb.dart';
 import 'package:fuerteads/screens/homeScreen/homePage.dart';
-import 'package:fuerteads/screens/homeScreen/resultPage.dart';
 import 'package:fuerteads/utils/app_theme.dart' as app_theme;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: app_theme.lightThemeData,
       title: 'All Driver Solution ',
-      home: SubscriptionPlanWeb(),
+      home: HomePage(),
     );
   }
 }

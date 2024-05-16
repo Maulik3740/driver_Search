@@ -83,7 +83,6 @@ class _HomePageState extends State<HomePage> {
     "Discover new opportunities",
     "Explore Vehicle Owners",
     "Explore RTOs near you",
-    // Add more text strings as needed
   ];
 
   List<String> sliderSubTexts = [
@@ -91,7 +90,6 @@ class _HomePageState extends State<HomePage> {
     "Find the perfect driver for your needs",
     "Locate vehicle owners in your area",
     "Find RTO agents near your location",
-    // Add more subtext strings as needed
   ];
 
   @override
@@ -177,31 +175,31 @@ class _HomePageState extends State<HomePage> {
                         child: Stack(
                           children: [
                             generatePositionedCircle(
-                              left: MediaQuery.of(context).size.width / 50,
+                              left: 35,
                               top: 15,
                               radius: 25,
                               imagePath: 'assets/8.png',
                             ),
                             generatePositionedCircle(
-                              left: MediaQuery.of(context).size.width / 15,
+                              left: 90,
                               top: 85,
                               radius: 45,
                               imagePath: 'assets/8.png',
                             ),
                             generatePositionedCircle(
-                              left: MediaQuery.of(context).size.width / 8,
+                              left: 200,
                               top: 12,
                               radius: 33,
                               imagePath: 'assets/8.png',
                             ),
                             generatePositionedCircle(
-                              left: MediaQuery.of(context).size.width / 5.5,
+                              left: 300,
                               top: 80,
                               radius: 65,
-                              imagePath: 'assets/8.png',
+                              imagePath: 'assets/5.png',
                             ),
                             generatePositionedCircle(
-                              left: MediaQuery.of(context).size.width / 2,
+                              left: 450,
                               top: 10,
                               radius: 32,
                               imagePath: 'assets/8.png',
@@ -232,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Positioned(
                               top: 220,
-                              left: 340 * s.customWidth,
+                              left: MediaQuery.of(context).size.width / 5,
                               child: Text(
                                 "Search For your next job",
                                 style: GoogleFonts.poppins(fontSize: 28, color: Colors.black, fontWeight: FontWeight.w600),
@@ -240,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Positioned(
                               top: 260,
-                              left: 300 * s.customWidth,
+                              left: MediaQuery.of(context).size.width / 6,
                               child: Text(
                                 "When you are searching for a job, there are a few things you can do to",
                                 style: GoogleFonts.poppins(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
@@ -248,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Positioned(
                               top: 275,
-                              left: 400 * s.customWidth,
+                              left: MediaQuery.of(context).size.width / 4,
                               child: Text(
                                 "get the most out of your search ",
                                 style: GoogleFonts.poppins(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w400),
@@ -261,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                       // Job Search Bar
                       Positioned(
                         bottom: 0,
-                        left: 100,
+                        left: s.width / 15,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -547,53 +545,6 @@ class _HomePageState extends State<HomePage> {
             imagePath,
             fit: BoxFit.cover,
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildCustomDropdownForm({
-    required List<String> items,
-    // required String dropdownValue,
-    required ValueChanged<String?> onChanged,
-  }) {
-    return Container(
-      height: 48,
-      child: Theme(
-        data: ThemeData(focusColor: Colors.amber, splashColor: Colors.transparent),
-        child: DropdownButtonFormField(
-          value: _selectedExperience,
-          decoration: InputDecoration(
-            enabled: false,
-            filled: false,
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-            fillColor: Colors.white,
-            hintText: "Select an Option",
-            hintStyle: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-          ),
-          // value: dropdownValue,
-          items: items.map((String item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(
-                item,
-                style: GoogleFonts.poppins(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            );
-          }).toList(),
-          onChanged: onChanged,
-          icon: Icon(
-            Icons.arrow_drop_down_circle,
-            color: Colors.black,
-          ),
-          dropdownColor: Colors.white,
         ),
       ),
     );

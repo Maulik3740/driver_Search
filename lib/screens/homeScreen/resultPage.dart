@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fuerteads/Pages/SubScription-Plan/sp.dart';
 import 'package:fuerteads/values/screen.dart';
@@ -6,11 +8,8 @@ import 'package:fuerteads/widgets/navbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../responsive.dart' as res;
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class ResultPage extends StatefulWidget {
   final String experience;
@@ -99,6 +98,15 @@ class _ResultPageState extends State<ResultPage> {
       "vehicle": "Truck",
 
       "containerColor": Color.fromARGB(255, 249, 124, 124), // Example color
+    },
+    {
+      "jobTitle": "Arlene Nicholson",
+      "phone": "(981) 482-2253",
+      "address": "781 Ralph Avenue, Hoehne, West Virginia, 1870",
+      "Image": "assets/7.png", "experience": "3 Year",
+      "vehicle": "Truck",
+
+      "containerColor": Color.fromARGB(Random().nextInt(256), Random().nextInt(256), Random().nextInt(256), 124), // Example color
     },
   ];
 
@@ -685,169 +693,48 @@ class _ResultPageState extends State<ResultPage> {
   }) {
     return Container(
       height: 35,
-      child: DropdownButtonFormField(
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            Icons.work_history,
-            color: green,
+      child: Theme(
+        data: ThemeData(focusColor: Colors.yellow),
+        child: DropdownButtonFormField(
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.work_history,
+              color: green,
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.black,
+            )),
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Select your Experience",
+            hintStyle: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+            border: OutlineInputBorder(),
           ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
+          // value: dropdownValue,
+          items: items.map((String item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                style: GoogleFonts.poppins(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            );
+          }).toList(),
+          onChanged: onChanged,
+          icon: Icon(
+            Icons.arrow_drop_down_circle,
             color: Colors.black,
-          )),
-          filled: true,
-          fillColor: Colors.white,
-          hintText: "Select your Experience",
-          hintStyle: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-          border: OutlineInputBorder(),
+          dropdownColor: Colors.blue.shade50,
         ),
-        // value: dropdownValue,
-        items: items.map((String item) {
-          return DropdownMenuItem(
-            value: item,
-            child: Text(
-              item,
-              style: GoogleFonts.poppins(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          );
-        }).toList(),
-        onChanged: onChanged,
-        icon: Icon(
-          Icons.arrow_drop_down_circle,
-          color: Colors.black,
-        ),
-        dropdownColor: Colors.blue.shade50,
-      ),
-    );
-  }
-
-  Widget buildWrap() {
-    return Wrap(
-      spacing: 10.0, // Adjust the spacing between items as needed
-      runSpacing: 10.0, // Adjust the run spacing as needed
-      runAlignment: WrapAlignment.start,
-      children: List.generate(
-        5, // Replace 'itemCount' with the actual item count
-        (index) => driverImage(),
-      ),
-    );
-  }
-
-  Widget driverImage() {
-    final h = MediaQuery.of(context).size.height;
-    final w = MediaQuery.of(context).size.width;
-    Screen s = Screen(context);
-    return Container(
-      height: h * 0.28,
-      width: w * 0.15,
-      decoration: BoxDecoration(color: Colors.blue.shade200, borderRadius: BorderRadius.circular(2)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: h * 0.015,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0.01 * w),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person_2_outlined),
-                ),
-                SizedBox(
-                  width: w * 0.08,
-                ),
-                Icon(
-                  Icons.bookmark_outline,
-                  color: black,
-                  size: 30,
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: w * 0.01, top: h * 0.02),
-            child: AutoSizeText(
-              "Zeeshan",
-              style: GoogleFonts.aBeeZee(color: black, fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: w * 0.01,
-            ),
-            child: AutoSizeText(
-              "+91- 987654****",
-              style: GoogleFonts.aBeeZee(color: black, fontWeight: FontWeight.bold, fontSize: 12),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: w * 0.01,
-            ),
-            child: AutoSizeText(
-              "Junagadh, Gujarat",
-              style: GoogleFonts.aBeeZee(color: black, fontWeight: FontWeight.w500, fontSize: 12),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: w * 0.01,
-            ),
-            child: AutoSizeText(
-              "7 Years Experience",
-              style: GoogleFonts.aBeeZee(color: black, fontSize: 12),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: w * 0.01,
-            ),
-            child: AutoSizeText(
-              "Truck",
-              style: GoogleFonts.aBeeZee(color: black, fontSize: 12),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SubscriptionPlan()));
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 42 * s.customHeight,
-                width: 150 * s.customWidth,
-                decoration: BoxDecoration(color: Colors.yellowAccent, borderRadius: BorderRadius.circular(12)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: Icon(
-                        Icons.album,
-                        size: 15,
-                        color: black,
-                      ),
-                    ),
-                    AutoSizeText(
-                      "View Details",
-                      style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

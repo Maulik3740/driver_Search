@@ -346,6 +346,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
+                                        10.heightBox,
                                         CustomTextField(
                                           controller: _cityController,
                                           hintText: 'Address',
@@ -357,6 +358,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
+                                        10.heightBox,
                                         CustomTextField(
                                           controller: _stateController,
                                           hintText: 'Mobile No.',
@@ -368,6 +370,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return null;
                                           },
                                         ),
+                                        10.heightBox,
                                         CustomTextField(
                                           controller: _pincodeController,
                                           hintText: 'Pincode',
@@ -384,7 +387,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                                             return "null";
                                           },
                                         ),
-                                        SizedBox(height: 20),
+                                        SizedBox(height: 10),
                                       ],
                                     ),
                                   ).px24(),
