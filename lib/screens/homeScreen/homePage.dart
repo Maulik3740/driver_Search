@@ -1,17 +1,20 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fuerteads/screens/homeScreen/resultPage.dart';
-import 'package:fuerteads/utils/homeUtiles.dart';
 import 'package:fuerteads/values/screen.dart';
 import 'package:fuerteads/values/values.dart';
 import 'package:fuerteads/widgets/navbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../responsive.dart' as res;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:http/http.dart' as http;
+
+const kGoogleApiKey = "AIzaSyDEbV8pJrdpVk5sFC0pGaxXyag4IpRoRTA";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,44 +24,99 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String test = '';
   String? data;
+  String? _selectedExperience;
+  final String token = '123456789';
+  bool _isListViewVisible = false;
+  TextEditingController _locationController = TextEditingController();
+
+  List<dynamic> listOfLocation = [];
 
   @override
   void initState() {
     super.initState();
-    fetchDataFromFirebase();
+    _locationController.addListener(_onChange);
+    // fetchDataFromFirebase();
   }
 
-  Future<void> fetchDataFromFirebase() async {
+  _onChange() {
+    placeSuggestion(_locationController.text);
+  }
+
+  Future<void> placeSuggestion(String input) async {
+    String url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=$kGoogleApiKey';
+    final corsProxy = 'https://api.allorigins.win/raw?url=';
+
+    final finalUrl = corsProxy + Uri.encodeComponent(url);
     try {
-      // Fetch data from Firebase
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Users').doc('1234567899').get();
-
-      // Extract data from snapshot
-      Map<String, dynamic> dataMap = snapshot.data() ?? {};
-
-      // Get the value you want to display
-      String? fetchedData = dataMap['Username'];
-
-      setState(() {
-        data = fetchedData;
-        print("object..................$data");
+      final response = await http.get(Uri.parse(finalUrl), headers: {
+        // 'x-cors-api-key': 'temp_4955789d2e18f9289b11562c6e97064e'
+        "x-requested-with": "XMLHttpRequest"
       });
-    } catch (error) {
-      print('Error fetching data: $error');
-      // Handle errors here
+      if (response.statusCode == 200) {
+        setState(() {
+          listOfLocation = json.decode(response.body)['predictions'];
+        });
+      } else {
+        print("Response.........Error ");
+        throw Exception('Failed to load suggestions');
+      }
+    } catch (e) {
+      print("Error : $e");
     }
   }
+  // try {
+  //     String apiKey = kGoogleApiKey;
+  //     String basedUrl = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
+  //     String request = '$basedUrl?input=$input&key=$apiKey&sessiontoken=$token';
+  //     var response = await http.get(Uri.parse(request), headers: {
+  //       'x-cors-api-key': 'temp_4955789d2e18f9289b11562c6e97064e'
+  //     });
 
-  TextEditingController _locationController = TextEditingController();
+  //     if (response.statusCode == 200) {
+  //       var data = json.decode(response.body);
+  //       setState(() {
+  //         listOfLocation = data['predictions'];
+  //       });
+  //     } else {
+  //       print("Error: ${response.statusCode}");
+  //       print("Response body: ${response.body}");
+  //     }
+  //   } catch (e) {
+  //     print("...........Exception: $e");
+  //   }
+  // }
+
+  // Future<void> fetchDataFromFirebase() async {
+  //   try {
+  //     // Fetch data from Firebase
+  //     DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Users').doc('1234567899').get();
+
+  //     // Extract data from snapshot
+  //     Map<String, dynamic> dataMap = snapshot.data() ?? {};
+
+  //     // Get the value you want to display
+  //     String? fetchedData = dataMap['Username'];
+
+  //     setState(() {
+  //       data = fetchedData;
+  //       print("object..................$data");
+  //     });
+  //   } catch (error) {
+  //     print('Error fetching data: $error');
+  //     // Handle errors here
+  //   }
+  // }
+
   // String _selectedExperience = '';
   List<String> _experiences = [
     'Driver',
     'Vehicle Owner',
     'Spare Parts',
-    'RTO Agent'
+    'RTO Agent',
+    'Repairing'
   ];
-  String? _selectedExperience;
 
   startLaunchURL(String url) async {
     // const url = 'https://flutter.dev';
@@ -95,7 +153,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Screen s = Screen(context);
-    final textTheme = Theme.of(context).textTheme;
+    // final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       backgroundColor: Color(0xfff4f9fe),
       appBar: PreferredSize(
@@ -292,7 +350,8 @@ class _HomePageState extends State<HomePage> {
                                       radius: 19,
                                     ),
                                   ),
-                                  Expanded(
+                                  Container(
+                                    width: 350,
                                     child: Theme(
                                       data: ThemeData(focusColor: Colors.amber, splashColor: Colors.transparent),
                                       child: DropdownButtonFormField<String>(
@@ -309,7 +368,7 @@ class _HomePageState extends State<HomePage> {
                                                 value: value,
                                                 child: Text(
                                                   value,
-                                                  style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+                                                  style: GoogleFonts.lato(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold),
                                                 ),
                                               ),
                                             )
@@ -333,10 +392,10 @@ class _HomePageState extends State<HomePage> {
                                           hintStyle: GoogleFonts.lato(
                                             color: Colors.grey,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 18.0,
+                                            fontSize: 16.0,
                                           ),
                                         ),
-                                        style: GoogleFonts.lato(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+                                        style: GoogleFonts.lato(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   ),
@@ -347,43 +406,37 @@ class _HomePageState extends State<HomePage> {
                                       thickness: 2,
                                     ),
                                   ),
-                                  Container(
-                                      height: 40 * s.customHeight,
-                                      width: 170 * s.customWidth,
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(top: 3 * s.customHeight),
-                                          child: TextField(
-                                            controller: _locationController,
-                                            cursorColor: Colors.black,
-                                            showCursor: true,
-                                            decoration: InputDecoration(
-                                              // filled: true,
-                                              fillColor: Colors.white,
-                                              focusColor: Colors.white,
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                                borderRadius: BorderRadius.circular(30),
+                                  Expanded(
+                                    child: Container(
+                                        height: 40 * s.customHeight,
+                                        // width: 170 * s.customWidth,
+                                        child: Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(top: 3 * s.customHeight, bottom: 8),
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _isListViewVisible = value.isNotEmpty;
+                                                });
+                                              },
+                                              controller: _locationController,
+                                              cursorColor: Colors.black,
+                                              showCursor: true,
+                                              decoration: InputDecoration.collapsed(
+                                                fillColor: Colors.white,
+                                                focusColor: Colors.white,
+                                                hintText: 'Enter Location',
+                                                hintStyle: GoogleFonts.lato(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15.0,
+                                                ),
                                               ),
-                                              border: OutlineInputBorder(
-                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                                borderRadius: BorderRadius.circular(30),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                                                borderRadius: BorderRadius.circular(30),
-                                              ),
-                                              hintText: 'Enter Location',
-                                              hintStyle: GoogleFonts.lato(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18.0,
-                                              ),
+                                              style: GoogleFonts.lato(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w600),
                                             ),
-                                            style: GoogleFonts.lato(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
                                           ),
-                                        ),
-                                      )),
+                                        )),
+                                  ),
                                   InkWell(
                                     onTap: () {
                                       print("object..........................................${_selectedExperience} , ${_locationController.text}");
@@ -424,6 +477,103 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
+            ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     Container(
+            //       height: 60 * s.customHeight,
+            //       width: 300 * s.customWidth,
+            //       child: TextField(
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _isListViewVisible = value.isNotEmpty;
+            //           });
+            //         },
+            //         controller: _locationController,
+            //         cursorColor: Colors.black,
+            //         showCursor: true,
+            //         decoration: InputDecoration(
+            //           // filled: true,
+            //           fillColor: Colors.amber,
+            //           focusColor: Colors.amber,
+            //           focusedBorder: OutlineInputBorder(
+            //             borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            //             borderRadius: BorderRadius.circular(30),
+            //           ),
+            //           border: OutlineInputBorder(
+            //             borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            //             borderRadius: BorderRadius.circular(30),
+            //           ),
+            //           enabledBorder: OutlineInputBorder(
+            //             borderSide: const BorderSide(color: Colors.black, width: 2.0),
+            //             borderRadius: BorderRadius.circular(30),
+            //           ),
+            //           hintText: 'Enter Location',
+            //           hintStyle: GoogleFonts.lato(
+            //             color: Colors.black,
+            //             fontWeight: FontWeight.w600,
+            //             fontSize: 18.0,
+            //           ),
+            //         ),
+            //         style: GoogleFonts.lato(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w600),
+            //       ),
+            //     ),
+            //     Visibility(
+            //       visible: _isListViewVisible,
+            //       child: Expanded(
+            //         child: ListView.builder(
+            //             shrinkWrap: true,
+            //             physics: NeverScrollableScrollPhysics(),
+            //             itemCount: listOfLocation.length,
+            //             itemBuilder: (context, index) {
+            //               return GestureDetector(
+            //                 onTap: () {
+            //                   setState(() {
+            //                     _locationController.text = listOfLocation[index]["description"];
+            //                     _isListViewVisible = false;
+            //                   });
+            //                 },
+            //                 child: Text(
+            //                   listOfLocation[index]["description"],
+            //                   style: GoogleFonts.lato(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold),
+            //                 ),
+            //               );
+            //             }),
+            //       ),
+            //     )
+            //   ],
+            // ).h(200),
+            Visibility(
+              visible: _isListViewVisible,
+              child: Container(
+                height: 200,
+                width: 380,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: listOfLocation.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              _locationController.text = listOfLocation[index]["description"];
+                              _isListViewVisible = false;
+                            });
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.location_on_rounded),
+                            title: Text(
+                              listOfLocation[index]["description"],
+                              style: GoogleFonts.lato(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold),
+                            ).pSymmetric(v: 5),
+                          ),
+                        );
+                      }),
+                ),
+              ).pOnly(left: 380),
             ),
             SizedBox(
               height: 60 * s.customHeight,

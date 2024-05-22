@@ -3,6 +3,10 @@
         android:label="fuerteads"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+           <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDEbV8pJrdpVk5sFC0pGaxXyag4IpRoRTA"/>
+               
         <activity
             android:name=".MainActivity"
             android:exported="true"

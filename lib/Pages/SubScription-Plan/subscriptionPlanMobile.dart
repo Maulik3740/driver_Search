@@ -313,7 +313,7 @@ class _SubscriptionPlanMobileState extends State<SubscriptionPlanMobile> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Details",
+                            "Fill Your Details",
                             style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                           ),
                         ],

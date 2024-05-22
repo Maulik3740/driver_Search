@@ -331,7 +331,7 @@ class _SubscriptionPlanWebState extends State<SubscriptionPlanWeb> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Details",
+                                        "Fill Your Details",
                                         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                                       ),
                                     ],

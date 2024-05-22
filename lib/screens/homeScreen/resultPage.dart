@@ -121,18 +121,16 @@ class _ResultPageState extends State<ResultPage> {
     }
   }
 
-  int _value = 0;
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     final size = MediaQuery.of(context).size;
     Screen s = Screen(context);
-    final textTheme = Theme.of(context).textTheme;
+    // final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      // backgroundColor: Color(0xfff4f9fe),
-      backgroundColor: white,
+      backgroundColor: Color(0xfff4f9fe),
+      // backgroundColor: white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0 * s.customHeight),
         child: s.isDesktop
@@ -225,15 +223,20 @@ class _ResultPageState extends State<ResultPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Icon(
-                      // Icons.location_city_outlined,
-                      // color: red,
                       Icons.bus_alert,
                       color: red,
                     ),
                   ),
-                  AutoSizeText(
-                    widget.location, // "Morbi, Gujarat",
-                    style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 250),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: AutoSizeText(
+                        overflow: TextOverflow.ellipsis,
+                        widget.location,
+                        style: GoogleFonts.aBeeZee(fontSize: 15, color: black),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 40 * s.customWidth,
@@ -571,10 +574,9 @@ class _ResultPageState extends State<ResultPage> {
                                                   jobTitle: jobData['jobTitle'],
                                                   mobile: widget.experience == "Driver" ? mobile : jobData['phone'],
                                                   address: jobData['address'],
-                                                  experience: jobData['experience'],
-                                                  vehicle: jobData['vehicle'],
-
-                                                  imageUrl: jobData['Image'], //jobData[dataIndex].tags,
+                                                  experience: widget.experience == "Driver" ? jobData['experience'] : '',
+                                                  vehicle: widget.experience == "Driver" || widget.experience == "Vehicle Owner" ? jobData['vehicle'] : '',
+                                                  imageUrl: jobData['Image'],
                                                 ).pOnly(right: 20, bottom: 20),
                                               );
                                             } else {
@@ -597,90 +599,6 @@ class _ResultPageState extends State<ResultPage> {
               ),
             ),
           )
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 20 * s.customWidth),
-          //   child: Row(
-          //     children: [
-          //       AutoSizeText(
-          //         "Filters",
-          //         style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
-          //       ),
-          //       SizedBox(
-          //         width: 110 * s.customWidth,
-          //       ),
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 4.0),
-          //         child: AutoSizeText(
-          //           "Clear All",
-          //           style: GoogleFonts.aBeeZee(color: grey, fontWeight: FontWeight.bold, fontSize: 12),
-          //         ),
-          //       ),
-          //       SizedBox(
-          //         width: 20 * s.customWidth,
-          //       ),
-          //       AutoSizeText(
-          //         "Driving Jobs",
-          //         style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
-          //       ),
-          //       SizedBox(
-          //         width: 10 * s.customWidth,
-          //       ),
-          //       AutoSizeText(
-          //         "Search Result (05)",
-          //         style: GoogleFonts.aBeeZee(color: grey, fontWeight: FontWeight.bold, fontSize: 19),
-          //       ),
-          //       Expanded(
-          //         child: SizedBox(
-          //           width: 160 * s.customWidth,
-          //         ),
-          //       ),
-          //       Container(
-          //           height: 35 * s.customHeight,
-          //           width: 120 * s.customWidth,
-          //           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade200)),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //             children: [
-          //               AutoSizeText(
-          //                 "Popular",
-          //                 style: GoogleFonts.aBeeZee(color: black, fontWeight: FontWeight.bold, fontSize: 15),
-          //               ),
-          //               Icon(Icons.keyboard_arrow_down_outlined)
-          //             ],
-          //           )),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10 * s.customHeight,
-          // ),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     Padding(
-          //       padding: EdgeInsets.symmetric(horizontal: 20 * s.customWidth),
-          //       child: Container(
-          //         width: 230 * s.customWidth,
-          //         height: 500 * s.customHeight,
-          //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade200)),
-          //       ),
-          //     ),
-          //     // GridView.builder(
-          //     //   itemCount:
-          //     //       3, // Replace 'itemCount' with your actual item count
-          //     //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //     //     crossAxisCount:
-          //     //         2, // You can change the cross axis count as needed
-          //     //     crossAxisSpacing: 10.0,
-          //     //     mainAxisSpacing: 10.0,
-          //     //   ),
-          //     //   itemBuilder: (BuildContext context, int index) {
-          //     //     return driverImage(); // Call your driverImage function here
-          //     //   },
-          //     // )
-          //     buildWrap()
-          //   ],
-          // ),
         ],
       ),
     );
@@ -692,7 +610,7 @@ class _ResultPageState extends State<ResultPage> {
     required ValueChanged<String?> onChanged,
   }) {
     return Container(
-      height: 35,
+      height: 45,
       child: Theme(
         data: ThemeData(focusColor: Colors.yellow),
         child: DropdownButtonFormField(
@@ -701,38 +619,47 @@ class _ResultPageState extends State<ResultPage> {
               Icons.work_history,
               color: green,
             ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+              color: Colors.transparent,
+            )),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-              color: Colors.black,
+              color: Colors.transparent,
             )),
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.grey.shade200,
             hintText: "Select your Experience",
             hintStyle: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 15.0),
+            // border: OutlineInputBorder(),
           ),
           // value: dropdownValue,
           items: items.map((String item) {
             return DropdownMenuItem(
               value: item,
-              child: Text(
-                item,
-                style: GoogleFonts.poppins(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w500,
-                ),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  item,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ).pOnly(top: 4),
               ),
             );
           }).toList(),
           onChanged: onChanged,
+          iconSize: 30,
           icon: Icon(
-            Icons.arrow_drop_down_circle,
+            Icons.arrow_drop_down,
             color: Colors.black,
-          ),
+            // size: 30,
+          ).pOnly(top: 2),
           dropdownColor: Colors.blue.shade50,
         ),
       ),
@@ -863,7 +790,7 @@ class _CustomJobContainerState extends State<CustomJobContainer> {
                         maxLines: 2,
                       ),
                       Text(
-                        widget.experience,
+                        widget.vehicle,
                         style: TextStyle(
                           // color: Colors.grey.shade700,
                           fontWeight: FontWeight.w600,
@@ -871,7 +798,7 @@ class _CustomJobContainerState extends State<CustomJobContainer> {
                         ),
                       ),
                       Text(
-                        widget.vehicle,
+                        widget.experience,
                         style: TextStyle(
                           // color: Colors.grey.shade700,
                           fontWeight: FontWeight.w600,
